@@ -3,24 +3,25 @@
 namespace App\Http\Controllers\AdminControllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
-use App\Models\User;
-use App\Models\Post;
 use App\Models\Category;
+
+use App\Models\Post;
 use App\Models\Role;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
 
         $countPost = Post::all()->count();
         $countCategories = Category::all()->count();
 
-        $role_admin = Role::where('name','!=','user')->first();
+        $role_admin = Role::where('name', '!=', 'user')->first();
         $countAdmin = User::all()->where('role_id', $role_admin->id)->count();
 
-        $role_user = Role::where('name','user')->first();
+        $role_user = Role::where('name', 'user')->first();
         $countUser = User::all()->where('role_id', $role_user->id)->count();
 
         $postAll = Post::all();
@@ -33,7 +34,7 @@ class DashboardController extends Controller
         }
 
 
-        return view('admin_dashboard.index',[
+        return view('admin_dashboard.index', [
             'countPost' => $countPost,
             'countCategories' => $countCategories,
             'countAdmin' => $countAdmin,
@@ -42,5 +43,4 @@ class DashboardController extends Controller
             'countComments' => $countComments,
         ]);
     }
-
 }

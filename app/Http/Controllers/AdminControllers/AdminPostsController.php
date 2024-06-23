@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\AdminControllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
 use App\Models\Category;
+
 use App\Models\Post;
 use App\Models\Tag;
+use Illuminate\Http\Request;
 
 class AdminPostsController extends Controller
 {
@@ -25,13 +25,13 @@ class AdminPostsController extends Controller
     {
         return view('admin_dashboard.posts.index', [
             // 'posts' => Post::with('category')->get(),
-            'posts' => Post::with('category')->orderBy('id','ASC')->paginate(20),
+            'posts' => Post::with('category')->orderBy('id', 'ASC')->paginate(20),
         ]);
     }
 
     public function create()
     {
-        return view('admin_dashboard.posts.create',[
+        return view('admin_dashboard.posts.create', [
             'categories' => Category::pluck('name', 'id')
         ]);
     }
@@ -42,13 +42,12 @@ class AdminPostsController extends Controller
         $validated['user_id'] = auth()->id();
         $post = Post::create($validated);
 
-        if($request->has('thumbnail'))
-        {
+        if ($request->has('thumbnail')) {
             $thumbnail = $request->file('thumbnail');
             $filename = $thumbnail->getClientOriginalName();
             $file_extension = $thumbnail->getClientOriginalExtension();
             $path   = $thumbnail->store('images', 'public');
-            
+
             $post->image()->create([
                 'name' => $filename,
                 'extension' => $file_extension,
@@ -59,29 +58,17 @@ class AdminPostsController extends Controller
         $tags = explode(',', $request->input('tags'));
         $tags_ids = [];
         foreach ($tags as $tag) {
-            $tag_ob = Tag::create(['name'=> trim($tag)]);
+            $tag_ob = Tag::create(['name' => trim($tag)]);
             $tags_ids[]  = $tag_ob->id;
         }
 
-        if (count($tags_ids) > 0)
-            $post->tags()->sync( $tags_ids ); 
-        
-        // $tags = explode(',', $request->input('tags'));
-        // $tags_ids = [];
-        // foreach ($tags as $tag) {
+        if (count($tags_ids) > 0) {
+            $post->tags()->sync($tags_ids);
+        }
 
-        //     $tag_exits = $post->tags()->where('name', trim($tag))->count();
-        //     if( $tag_exits == 0){
-        //         $tag_ob = Tag::create(['name'=> $tag]);
-        //         $tags_ids[]  = $tag_ob->id;
-        //     }
-            
-        // }
-
-        // if (count($tags_ids) > 0)
-        //     $post->tags()->syncWithoutDetaching( $tags_ids );
-
-        return redirect()->route('admin.posts.create')->with('success', 'Thêm bài viết thành công.');
+        return redirect()
+            ->route('admin.posts.create')
+            ->with('success', 'Thêm bài viết thành công.');
     }
 
     public function show($id)
@@ -90,15 +77,16 @@ class AdminPostsController extends Controller
     }
 
 
-    public function edit(Post $post){
+    public function edit(Post $post)
+    {
         $tags = '';
-        foreach($post->tags as $key => $tag){
+        foreach ($post->tags as $key => $tag) {
             $tags .= $tag->name;
-            if($key !== count($post->tags) - 1)
+            if ($key !== count($post->tags) - 1)
                 $tags .= ', ';
         }
-        
-        return view('admin_dashboard.posts.edit',[
+
+        return view('admin_dashboard.posts.edit', [
             'post' => $post,
             'tags' => $tags,
             'categories' => Category::pluck('name', 'id')
@@ -110,16 +98,15 @@ class AdminPostsController extends Controller
     {
         $this->rules['thumbnail'] = 'nullable|file||mimes:jpg,png,webp,svg,jpeg|dimensions:max-width:800,max-height:300';
         $validated = $request->validate($this->rules);
-        $validated['approved'] = $request->input('approved') !== null; 
+        $validated['approved'] = $request->input('approved') !== null;
         $post->update($validated);
 
-        if($request->has('thumbnail'))
-        {
+        if ($request->has('thumbnail')) {
             $thumbnail = $request->file('thumbnail');
             $filename = $thumbnail->getClientOriginalName();
             $file_extension = $thumbnail->getClientOriginalExtension();
-            $path   = $thumbnail->store('images', 'public');
-            
+            $path = $thumbnail->store('images', 'public');
+
             $post->image()->update([
                 'name' => $filename,
                 'extension' => $file_extension,
@@ -130,19 +117,18 @@ class AdminPostsController extends Controller
         $tags = explode(',', $request->input('tags'));
         $tags_ids = [];
         foreach ($tags as $tag) {
-
             $tag_exits = $post->tags()->where('name', trim($tag))->count();
-            if( $tag_exits == 0){
-                $tag_ob = Tag::create(['name'=> $tag]);
+            if ($tag_exits == 0) {
+                $tag_ob = Tag::create(['name' => $tag]);
                 $tags_ids[]  = $tag_ob->id;
             }
-            
         }
 
-        if (count($tags_ids) > 0)
-            $post->tags()->syncWithoutDetaching( $tags_ids ); 
+        if (count($tags_ids) > 0) {
+            $post->tags()->syncWithoutDetaching($tags_ids);
+        }
 
-        return redirect()->route('admin.posts.edit', $post)->with('success', 'Sửa viết thành công.');
+        return redirect()->route('admin.posts.edit', $post)->with('success', 'Sửa bài viết thành công.');
     }
 
     public function destroy(Post $post)
@@ -150,12 +136,13 @@ class AdminPostsController extends Controller
         $post->tags()->delete();
         $post->comments()->delete();
         $post->delete();
-        return redirect()->route('admin.posts.index')->with('success','Xóa bài viết thành công.');
+        return redirect()->route('admin.posts.index')->with('success', 'Xóa bài viết thành công.');
     }
 
 
     // Hàm tạo slug tự động
-    public function to_slug(Request $request) {
+    public function to_slug(Request $request)
+    {
         $str = $request->title;
         $data['success'] = 1;
         $str = trim(mb_strtolower($str));
@@ -171,8 +158,4 @@ class AdminPostsController extends Controller
         $data['message'] =  $str;
         return response()->json($data);
     }
-
-    
-
-
 }

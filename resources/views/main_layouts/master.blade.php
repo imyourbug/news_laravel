@@ -33,7 +33,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	<link rel="icon" type="image/png" href="{{ asset('kcnew/frontend/img/image_iconLogo.png') }}"  sizes="160x160">
 
 	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet">
-	
+
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="{{ asset('blog_template/css/animate.css') }}">
 	<!-- Icomoon Icon Fonts-->
@@ -50,7 +50,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	<!-- Owl Carousel -->
 	<!-- <link rel="stylesheet" href="{{ asset('blog_template/css/owl.carousel.min.') }}"> -->
 	<link rel="stylesheet" href="{{ asset('blog_template/css/owl.theme.default.min.css') }}">
-	
+
 	<!-- Flaticons  -->
 	<link rel="stylesheet" href="{{ asset('blog_template/fonts/flaticon/font/flaticon.css') }}">
 
@@ -97,7 +97,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 
 </head>
 <body class="boxed" data-bg-img="{{ asset('kcnew/frontend/img/bg_website.png') }}">
-		
+
 	<header class="header--section header--style-3">
 		<!-- Header Topbar Start -->
 		<div class="header--topbar  bg--color-1">
@@ -111,13 +111,13 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 								<img style="border-radius: 12px; height: 40px;" src="{{ asset('kcnew/frontend/img/image_logo.png') }}" alt="logo">
 							</a>
 						</li>
-						<li><i class="fa fm fa-map-marker"></i>Hồ Chí Minh</li>
+						<li><i class="fa fm fa-map-marker"></i>Hà Nội</li>
 						<li><i class="fa fm fa-mixcloud"></i>28<sup>0</sup> C</li>
 						<li style="text-transform: capitalize" ><i class="fa fm fa-calendar"></i>Hôm nay ( {{ $now->translatedFormat('l') }}, Ngày {{ $now->translatedFormat('jS F')}} Năm {{ $now->translatedFormat('Y')}} )</li>
 					</ul>
 					<!-- Header Topbar Info End -->
 				</div>
-	
+
 				<div class="float--right float--xs-none text-xs-center">
 					<!-- Header Topbar Action Start -->
 					<ul class="header--topbar-action nav">
@@ -134,7 +134,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 								<li class="has-dropdown">
 									<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 										<i class="fa fm fa-user-o"></i>
-										{{ auth()->user()->name }} 
+										{{ auth()->user()->name }}
 										<span class="caret"></span>
 									</a>
 									<ul class="dropdown-menu">
@@ -162,8 +162,8 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 
 					</ul>
 					<!-- Header Topbar Action End -->
-	
-	
+
+
 					<!-- Header Topbar Social Start -->
 					<ul class="header--topbar-social nav hidden-sm hidden-xxs">
 						<li><a href="https://www.facebook.com/people/Anh-Tuan/100007007238964"><i class="fa fa-facebook"></i></a></li>
@@ -177,7 +177,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 			</div>
 		</div>
 		<!-- Header Topbar End -->
-	
+
 		<!-- Header Navbar Start -->
 		<div class="header--navbar navbar bd--color-1 bg--color-0" data-trigger="sticky">
 			<div class="container">
@@ -190,7 +190,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 						<span class="icon-bar"></span>
 					</button>
 				</div>
-	
+
 				<div id="headerNav" class="navbar-collapse collapse float--left">
 					<!-- Header Menu Links Start -->
 					<ul class="header--menu-links nav navbar-nav" data-trigger="hoverIntent">
@@ -221,13 +221,13 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 					</ul>
 					<!-- Header Menu Links End -->
 				</div>
-	
+
 				<!-- Header Search Form Start -->
 				<form method="POST" action="{{ route('search') }}" class="header--search-form float--right" data-form="validate">
-					@csrf	
+					@csrf
 					<input type="search" name="search" placeholder="Search..." class="header--search-control form-control"
                     required>
-	
+
 					<button type="submit" class="header--search-btn btn"><i
 							class="header--search-icon fa fa-search"></i></button>
 				</form>
@@ -239,7 +239,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 
 	<!-- Header Section End -->
 	<div id="page" class="wrapper">
-	
+
 		<!-- Posts Filter Bar Start -->
 		<div class="posts--filter-bar style--3 hidden-xs">
 			<div class="container">
@@ -250,7 +250,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 							<span>Tin tức mới nhất</span>
 						</a>
 					</li>
-				
+
 					<li>
 						<a href="{{ route('hotPost') }}">
 							<i class="fa fa-fire"></i>
@@ -289,7 +289,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 		@yield('content')
 
 	</div>
-	
+
 
 	<footer id="colorlib-footer">
 		<div class="container">
@@ -307,7 +307,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 							@for($i = 0; $i < 4; $i++)
 							<li><a href="{{ route('categories.show', $categoryFooter[$i] ) }}">{{ $categoryFooter[$i]->name }}</a></li>
 							@endfor
-							
+
 						</ul>
 				</div>
 				<div class="col-md-2  colorlib-widget">
@@ -315,7 +315,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 							@for($i = 4; $i < 8; $i++)
 							<li><a href="{{ route('categories.show', $categoryFooter[$i] ) }}">{{ $categoryFooter[$i]->name }}</a></li>
 							@endfor
-							
+
 						</ul>
 				</div>
 
@@ -343,11 +343,11 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 					</div>
 				</div>
 			</div>
-		
+
 		</div>
 
 
-	
+
 		<div class="container">
 			<div style=" padding: 15px 0; display: flex;" class=" row">
 				<div class="col-md-4">
@@ -399,8 +399,16 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="icon-arrow-up2"></i></a>
 	</div>
-	
-	
+
+    <script>
+        var botmanWidget = {
+            aboutText: 'Gửi lời nhắn đến chúng tôi',
+            introMessage: "Chào bạn đến với trang tin tức lớn nhất Việt Nam"
+        };
+    </script>
+    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+
+
 		<!-- jQuery -->
 	<script src="{{ asset('blog_template/js/jquery.min.js') }}"></script>
 	<!-- jQuery Easing -->
@@ -467,7 +475,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 
 	<!-- ==== Main JavaScript ==== -->
 	<script src="{{ asset('kcnew/frontend/js/main.js') }}"></script>
-	
+
 
 	<script >
 		$(function(){
@@ -479,7 +487,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 			$(document).on("click", "#subscibe-btn", (e) => {
 				e.preventDefault();
 				let _this = $(e.target);
-		
+
 				let email = _this.parents("form").find("input[name='subscribe-email']").val();
 				if( ! isEmail( email))
 				{
@@ -491,7 +499,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 					//1 using ajax
 					let formData = new FormData();
 					let _token = $("meta[name='_token']").attr("content");
-					 
+
 					formData.append('_token', _token);
 					formData.append('email', email);
 
@@ -505,20 +513,20 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 						success: (respond) => {
 							let message = respond.message;
 							$("body").append("<div class='global-message alert alert-danger subscribe-success'>"+ message +"</div>");
-						
+
 							_this.parents("form").find("input[name='subscribe-email']").val('');
 						},
 						statusCode: {
-							500: () => {								 
+							500: () => {
 								$("body").append("<div class='global-message alert alert-danger subscribe-error'>Email này đã subscribe website chúng tôi</div>");
 
 							}
-						} 
+						}
 					});
-					 
+
 				}
 				setTimeout( () => {
-	 
+
 					$(".global-message.subscribe-error, .global-message.subscribe-success").remove();
 
 				}, 5000 );
