@@ -30,7 +30,7 @@ class AdminCommentsController extends Controller
     }
 
 
- 
+
     public function store(Request $request)
     {
 
@@ -41,7 +41,7 @@ class AdminCommentsController extends Controller
         return redirect()->route('admin.comments.create')->with('success', 'Thêm bình luận mới thành công.');
     }
 
- 
+
     public function edit(Comment $comment)
     {
         return view('admin_dashboard.comments.edit',[
@@ -54,7 +54,7 @@ class AdminCommentsController extends Controller
     public function update(Request $request, Comment $comment)
     {
         $validated = $request->validate($this->rules);
- 
+
         $comment->update($validated);
         return redirect()->route('admin.comments.edit',$comment)->with('success', 'Sửa bình luận mới thành công.');
     }
@@ -64,5 +64,13 @@ class AdminCommentsController extends Controller
     {
         $comment->delete();
         return redirect()->route('admin.comments.index')->with('success', 'Xóa bình luận mới thành công.');
+    }
+
+    public function approve ($id )
+    {
+         $comment = Comment::findOrFail($id);
+         $comment->status = 1;
+         $comment->save();
+        return redirect()->route('admin.comments.index')->with('success', 'Phê duyệt bình luận mới thành công.');
     }
 }

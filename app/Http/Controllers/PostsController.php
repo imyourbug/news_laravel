@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Post;
 use App\Models\Tag;
+use App\Models\Post;
+use App\Models\Comment;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -109,5 +110,24 @@ class PostsController extends Controller
         }
 
         return response()->json($data);
+    }
+
+    public function reply(Request $request, $id)
+    {
+        $request->validate([
+            'reply_content' => 'required|string|max:255',
+        ]);
+
+        $comment = Comment::findOrFail($id);
+        $reply = $comment->replies()->create([
+            'content' => $request->input('reply_content'),
+            'user_id' => auth()->id(),
+        ]);
+
+            return response()->json([
+                'success' => true,
+                'reply_content' => $reply->content,
+                'user_name' => auth()->user()->name
+            ]);
     }
 }

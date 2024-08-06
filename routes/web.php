@@ -50,6 +50,7 @@ Route::get('/xem-nhieu-nhat', [HomeController::class, 'viewPost'])->name('viewPo
 Route::get('/bai-vet/{post:slug}', [PostsController::class, 'show'])->name('posts.show');
 Route::post('/bai-viet/{post:slug}', [PostsController::class, 'addComment'])->name('posts.add_comment');
 Route::post('/binh-luan', [PostsController::class, 'addCommentUser'])->name('posts.addCommentUser');
+Route::post('/bai-viet/reply/{id}', [PostsController::class, 'reply'])->name('comments.reply');
 
 
 Route::get('/gioi-thieu', AboutController::class)->name('about');
@@ -77,6 +78,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'check_permissions']
 
     Route::resource('tags', AdminTagsController::class)->only(['index', 'show', 'destroy']);
     Route::resource('comments', AdminCommentsController::class)->except('show');
+    Route::get('comments/{id}', [AdminCommentsController::class, 'approve'])->name('approve.comment');
 
     Route::resource('roles', AdminRolesController::class)->except('show');
     Route::resource('users', AdminUsersController::class);
