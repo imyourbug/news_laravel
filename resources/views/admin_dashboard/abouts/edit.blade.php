@@ -1,7 +1,7 @@
 @extends("admin_dashboard.layouts.app")
-		
+
 @section("style")
-	<script src="https://cdn.tiny.cloud/1/5nk94xe9fcwk22fkp6gou9ymszwidnujnr2mu3n3xe2biap3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+	<script src="https://cdn.tiny.cloud/1/e6i7nyh9x0wuuqn6dxfi4xs3c44p6x1jlh4uk6gqs51uy1cc/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 @endsection
 
 @section("wrapper")
@@ -22,7 +22,7 @@
 					</div>
 				</div>
 				<!--end breadcrumb-->
-			  
+
 				<div class="card">
 				  <div class="card-body p-4">
 					  <h5 class="card-title">Sửa trang giới thiệu</h5>
@@ -38,7 +38,7 @@
 										<div class="mb-3">
 											<label for="about_first_text" class="form-label">Chúng tôi là ai ?</label>
 											<textarea name="about_first_text" class="form-control" id="about_first_text" >{{ $setting->about_first_text}}</textarea>
-										
+
 											@error('about_first_text')
 												<p class="text-danger">{{ $message }}</p>
 											@enderror
@@ -87,7 +87,7 @@
 											</div>
 										</div>
 
-										
+
 
 										<div class="mb-3">
 											<label for="about_our_mission" class="form-label">Sứ mạng</label>
@@ -95,7 +95,7 @@
 											@error('about_our_mission')
 												<p class="text-danger">{{ $message }}</p>
 											@enderror
-										
+
 										</div>
 
 										<div class="mb-3">
@@ -104,7 +104,7 @@
 											@error('about_our_vision')
 												<p class="text-danger">{{ $message }}</p>
 											@enderror
-										
+
 										</div>
 
 										<div class="mb-3">
@@ -131,11 +131,11 @@
 		</div>
 		<!--end page wrapper -->
 @endsection
-	
+
 @section("script")
 	<script>
 		$(document).ready(function () {
-					
+
 			setTimeout(()=>{
 					$(".general-message").fadeOut();
 			},5000);
@@ -151,12 +151,12 @@
 					toolbar_mode: 'floating',
 				});
 			};
-			
-			
+
+
 			initTinyMCE('about_our_mission');
 			initTinyMCE('about_our_vision');
 			initTinyMCE('about_services');
-	
+
 		});
 
 

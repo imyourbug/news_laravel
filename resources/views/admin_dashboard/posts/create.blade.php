@@ -1,7 +1,7 @@
 @extends("admin_dashboard.layouts.app")
 @section("style")
 	<!-- <link href="{{ asset('admin_dashboard_assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css') }}" rel="stylesheet" /> -->
-	
+
 	<link href="{{ asset('admin_dashboard_assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" />
 	<link href="{{ asset('admin_dashboard_assets/plugins/select2/css/select2-bootstrap4.css') }}" rel="stylesheet" />
 
@@ -14,9 +14,9 @@
 		}
 	</style> -->
 
-	<script src="https://cdn.tiny.cloud/1/5nk94xe9fcwk22fkp6gou9ymszwidnujnr2mu3n3xe2biap3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+	<script src="https://cdn.tiny.cloud/1/e6i7nyh9x0wuuqn6dxfi4xs3c44p6x1jlh4uk6gqs51uy1cc/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 @endsection
-		
+
 @section("wrapper")
 		<!--start page wrapper -->
 		<div class="page-wrapper">
@@ -35,7 +35,7 @@
 					</div>
 				</div>
 				<!--end breadcrumb-->
-			  
+
 				<div class="card">
 				  <div class="card-body p-4">
 					  <h5 class="card-title">Thêm bài viết mới</h5>
@@ -50,7 +50,7 @@
 										<div class="mb-3">
 											<label for="inputProductTitle" class="form-label">Tiêu đề bài viết</label>
 											<input type="text" value=' {{ old("title" ) }}' name="title" required  class="inputPostTitle form-control" id="inputProductTitle" placeholder="Nhập tiêu đề bài viết">
-										
+
 											@error('title')
 												<p class="text-danger">{{ $message }}</p>
 											@enderror
@@ -59,7 +59,7 @@
 										<div class="mb-3">
 											<label for="inputProductTitle" class="form-label">Slug - liên kết</label>
 											<input type="text" value=' {{ old("slug" ) }}' name="slug" required  class="slugPost form-control" id="inputProductTitle" placeholder="Nhập slug">
-										
+
 											@error('slug')
 												<p class="text-danger">{{ $message }}</p>
 											@enderror
@@ -69,11 +69,11 @@
 											<label for="inputProductDescription" class="form-label">Mô tả</label>
 											<textarea required name="excerpt" class="form-control" id="inputProductDescription" rows="3">{{ old("excerpt") }}</textarea>
 
-													
+
 											@error('excerpt')
 												<p class="text-danger">{{ $message }}</p>
 											@enderror
-										
+
 										</div>
 
 										<div class="mb-3">
@@ -103,25 +103,25 @@
                                             <input type="text" class="form-control" name="tags" data-role="tagsinput">
                                         </div>
 
-										<!-- <input id="image-uploadify" name="thumbnail" type="file" id="file" accept="image/*" multiple> -->								
+										<!-- <input id="image-uploadify" name="thumbnail" type="file" id="file" accept="image/*" multiple> -->
 										<div class="mb-3">
 											<label for="inputProductDescription" class="form-label">Hình ảnh bài viết</label>
 											<input id="thumbnail" require name="thumbnail" type="file" id="file">
-										
+
 											@error('thumbnail')
 												<p class="text-danger">{{ $message }}</p>
 											@enderror
-										
+
 										</div>
-										
+
 										<div class="mb-3">
 											<label for="inputProductDescription" class="form-label">Nội dung bài viết</label>
 											<textarea name="body" id="post_content" class="form-control" id="inputProductDescription" rows="3">{{ old("body" ) }}</textarea>
-										
+
 											@error('body')
 												<p class="text-danger">{{ $message }}</p>
 											@enderror
-										
+
 										</div>
 
 										<button class="btn btn-primary" type="submit">Thêm bài viết</button>
@@ -140,7 +140,7 @@
 		</div>
 		<!--end page wrapper -->
 @endsection
-	
+
 @section("script")
 	<!-- <script src="{{ asset('admin_dashboard_assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js') }}"></script> -->
 	<script src="{{ asset('admin_dashboard_assets/plugins/select2/js/select2.min.js') }}"></script>
@@ -155,7 +155,7 @@
 			placeholder: $(this).data('placeholder'),
 			allowClear: Boolean($(this).data('allow-clear')),
 			});
-			
+
 			$('.multiple-select').select2({
 				theme: 'bootstrap4',
 				width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
@@ -184,7 +184,7 @@
 				xhr.onload = () => {
 					if(xhr.status !== 200) {
 						failure("Http Error: " + xhr.status);
-						return 
+						return
 					}
 					let json = JSON.parse(xhr.responseText);
 					if(! json || typeof json.location != 'string'){
@@ -199,7 +199,7 @@
 				formData.append('file', blobinfo.blob(), blobinfo.filename());
 				xhr.send(formData) ;
 			}
-			
+
 		});
 
 		setTimeout(()=>{
@@ -219,11 +219,11 @@
 
 		let csrf_token = $($this).parents("form").find("input[name='_token']").val();
 		let titlePost =  $($this).parents("form").find("input[name='title']").val();
-		
+
 		let formData = new FormData();
 		formData.append('_token', csrf_token);
 		formData.append('title', titlePost);
-		
+
 		$.ajax({
 			url: "{{ route('admin.posts.to_slug') }}",
 			data: formData,
